@@ -86,10 +86,20 @@ Stores information about constituents, including:
 - `npm run seed` - Seed database with sample data
 - `npm run unseed` - Remove seeded data
 
-## License
+## Approach to Project  
+Using v0.dev, I created a loose boilerplate for this app that I could expand upon.  
 
-This project is privately licensed and not available for redistribution.
+I chose the technologies listed above for a couple of reasons:  
+1. React, GraphQL, and Postgres are within my comfort zone and offer decent scalability—granted, that wasn’t entirely necessary.  
+2. Next.js is something I’ve been trying to learn more about for a current side project, and this seemed like another opportunity to expand my skills. In addition, I believe the recruiter mentioned it was part of your tech stack already, but I might be mistaken.  
 
-## Support
+I approached this from the politician's perspective rather than the constituent's, as far as the project goes. For example, a better UX for the constituent would be to first enter only their email, check if it matches existing data, and then update any necessary information, rather than having to re-enter everything. Additionally, the app doesn’t provide functionality for constituents to see others in their party or connect with them. While that could raise privacy concerns, such issues could be mitigated with an approval system.  
 
-For issues or feature requests, please contact the development team. 
+## Trade-offs  
+
+- **Postgres**: Could become a challenge down the road if the schema changes rapidly. However, it provides the necessary relationships for a one-to-many structure.  
+  I also didn’t account for situations where a constituent might attend events for various politicians and the implications that would have on the schema. There would likely need to be join tables in addition to an events table to accommodate these nuances.  
+
+- **GraphQL**: While GraphQL is great for handling complexity, for many of these simple queries, it might introduce unnecessary overhead and slow things down. It also requires more setup compared to simple REST calls.  
+
+- **Next.js**: While Next.js has many advantages, especially for server-side rendering, it requires additional effort to set up. Given the size of this project, it may be overkill.  
