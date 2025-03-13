@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(uuid())
+  email         String        @unique
+  name          String?
+  username      String        @unique
+  password      String
+  figureType    FigureType?
+  constituents  Constituents[]
+}
+
+model Constituents {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  phone String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  address String?
+  city String?
+  state String?
+  zip String?
+  county String?
+  partyAffiliation PoliticalParty?
+  isActive Boolean @default(true)
+  isVoter Boolean @default(true)
+  approvalRating Int?
+  representedBy User? @relation(fields: [representedById], references: [id])
+  representedById String?
+}
+
+enum FigureType {
+  CONGRESS
+  SENATE
+  HOUSE
+  STATE_SENATE
+  STATE_HOUSE
+  GOVERNOR
+  OTHER
+}
+
+enum PoliticalParty {
+  DEMOCRATIC
+  REPUBLICAN
+  LIBERTARIAN
+  GREEN
+  CONSTITUTION
+  ALLIANCE
+  AMERICAN_SOLIDARITY
+  FORWARD
+  REFORM
+  SOCIALIST_PARTY_USA
+  WORKING_FAMILIES
+  PEACE_AND_FREEDOM
+  PROHIBITION
+}
